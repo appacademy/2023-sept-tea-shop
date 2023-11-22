@@ -12,7 +12,7 @@
 class Tea < ApplicationRecord
   validates :flavor, :price, presence: true
 
-  has_many :transactions,
+  has_many :transactions, # also creates method #transaction_ids
     dependent: :destroy
 
   has_many :buyers,

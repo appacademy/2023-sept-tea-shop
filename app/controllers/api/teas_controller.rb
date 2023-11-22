@@ -1,15 +1,21 @@
 class Api::TeasController < ApplicationController
   # wrap_parameters
 
+  def show
+    @tea = Tea.find_by(id: params[:id])
+    render :show
+  end
+
   def index
     @teas = Tea.all
-    render json: @teas
+    # render json: @teas
+    render :index
   end
 
   def create
     @tea = Tea.new(tea_params)
     if @tea.save
-      render json: @tea
+      render :info
     else
       render json: @tea.errors.full_messages, status: 422
     end

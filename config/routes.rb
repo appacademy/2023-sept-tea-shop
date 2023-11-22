@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   namespace :api, defaults: { format: :json } do
-    resources :teas, only: [:index, :create, :destroy]
+    resources :teas, only: [:show, :index, :create, :destroy]
   end
 end
