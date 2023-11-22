@@ -1,1 +1,5 @@
 /* TODO: Add sitewide styles */
+
+ul {
+  list-style: none;
+}

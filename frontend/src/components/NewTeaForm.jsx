@@ -25,6 +25,7 @@ const NewTeaForm = props => {
         placeholder='Flavor'
         value={flavor}
         onChange={e => setFlavor(e.target.value)}
+        required
       />
       <input type='submit' value={'Create Tea'} />
     </form>

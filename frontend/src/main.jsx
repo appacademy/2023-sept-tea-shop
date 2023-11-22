@@ -11,6 +11,7 @@ import { receiveTea, receiveTeas, removeTea, updateTea } from './store/teaReduce
 console.log('welcome to the magic tea shop!');
 
 const store = configureStore();
+store.subscribe(() => console.log("New state: ", store.getState().teas));
 
 // Testing Purposes Only
 window.store = store;

@@ -9,12 +9,13 @@ const TeaIndex = props => {
 
   useEffect(() => {
     // fetch data from backend and then add data to store
-    dispatch(receiveTeas({1: { id: 1, flavor: 'green'}, 2: { id: 2, flavor: 'black '}}))
+    const teas = { 1: { id: 1, flavor: 'green' }, 2: { id: 2, flavor: 'black ' } };
+    dispatch(receiveTeas(teas))
   }, []);
 
   return (
     <>
-      <h2>TeaIndex</h2>
+      <h2>Teas in Stock</h2>
       <ul>
         {Object.values(teas).map(tea => (
           <li key={tea.id}>
