@@ -13,8 +13,9 @@ class Api::TeasController < ApplicationController
   end
 
   def create
+    # debugger
     @tea = Tea.new(tea_params)
-    if @tea.save
+    if @tea.save!
       render :info
     else
       render json: @tea.errors.full_messages, status: 422
@@ -24,7 +25,8 @@ class Api::TeasController < ApplicationController
   def destroy
     @tea = Tea.find_by(id: params[:id])
     if @tea&.destroy
-      head :no_content
+      # head :no_content
+      render json: @tea
     else
       render json: ['Something went wrong'], status: 422
     end

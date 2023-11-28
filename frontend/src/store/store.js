@@ -1,6 +1,8 @@
-import { legacy_createStore, combineReducers } from "redux";
+import { legacy_createStore, combineReducers, applyMiddleware } from "redux";
 import teaReducer from "./teaReducer";
 import transactionReducer from "./transactionReducer";
+import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 import userReducer from "./userReducer";
 
 // const dummyReducer = (state = {}, action) => state; 
@@ -13,7 +15,7 @@ const rootReducer = combineReducers({
 });
 
 const configureStore = (initialState = {}) => (
-  legacy_createStore(rootReducer, initialState)
+  legacy_createStore(rootReducer, initialState, applyMiddleware(thunk, logger))
 );
 
 export default configureStore;

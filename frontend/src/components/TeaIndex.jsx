@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import './TeaIndex.css';
 import { useEffect } from 'react';
 import { receiveTeas, removeTea, selectTeas } from '../store/teaReducer';
-
-const TeaIndex = props => {
+import { destroyTea } from '../store/teaReducer';
+const TeaIndex = () => {
   const dispatch = useDispatch();
   const teas = useSelector(selectTeas);
 
@@ -11,7 +11,7 @@ const TeaIndex = props => {
     // fetch data from backend and then add data to store
     const teas = { 1: { id: 1, flavor: 'green' }, 2: { id: 2, flavor: 'black ' } };
     dispatch(receiveTeas(teas))
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
@@ -20,7 +20,7 @@ const TeaIndex = props => {
         {Object.values(teas).map(tea => (
           <li key={tea.id}>
             {tea.flavor}
-            <button onClick={() => dispatch(removeTea(tea.id))}>Delete</button>
+            <button onClick={() => dispatch(destroyTea(tea.id))}>Delete</button>
           </li>
         ))}
       </ul>

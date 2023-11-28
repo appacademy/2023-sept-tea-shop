@@ -3,6 +3,7 @@ export const RECEIVE_TEAS = 'RECEIVE_TEAS';
 export const RECEIVE_TEA = 'RECEIVE_TEA';
 export const UPDATE_TEA = 'UPDATE_TEA';
 export const REMOVE_TEA = 'REMOVE_TEA';
+import { postTea, deleteTea } from "../utils/tea_api_util";
 
 // Action Creators
 export const receiveTeas = teas => ({
@@ -24,6 +25,52 @@ export const removeTea = teaId => ({
   type: REMOVE_TEA,
   teaId: teaId
 });
+
+
+// THUNK ACTION CREATOR
+export const createTea = (tea) => async (dispatch) =>{
+  // make our request, using the until function we just wrote 
+  const res = await postTea(tea);;
+  let data;
+  if(res.ok){
+    data = await res.json();
+    // if the response is okay, I then want to dispatch that data via an action creator
+    dispatch(receiveTea(data))
+    
+  }else{
+    console.log(res.statusText)
+  }
+
+}
+
+
+export const destroyTea = (teaId) => async (dispatch) =>{
+  const res = await deleteTea(teaId);
+  let data;
+  if(res.ok){
+    data = await res.json();
+    dispatch(removeTea(data.id))
+  }else {
+    console.log("something went wrong!")
+  }
+}
+
+
+
+
+
+
+// export const deleteTea = (teaId) => {
+//   return fetch(`/api/teas/${teaId}`, {
+//     method: 'DELETE',
+//     // body: JSON.stringify(tea),
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Accept': 'application/json'
+//     }
+//   });
+// };
+
 
 // Selectors
 export const selectTeas = state => state.teas;
