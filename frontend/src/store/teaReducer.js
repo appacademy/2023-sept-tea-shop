@@ -1,3 +1,5 @@
+import { createSelector } from 'reselect';
+
 import { getTeas, postTea, deleteTea, getTea } from "../utils/tea_api_util";
 
 // Type Constants
@@ -21,7 +23,7 @@ export const receiveTeaInfo = tea => ({
 export const receiveTeaDetail = data => ({
   type: RECEIVE_TEA_DETAIL,
   data
-})
+});
 
 export const updateTea = tea => ({
   type: UPDATE_TEA,
@@ -33,7 +35,7 @@ export const removeTea = teaId => ({
   teaId: teaId
 });
 
-// THUNK ACTION CREATOR
+// Thunk Action Creators
 export const fetchTea = teaId => async dispatch => {
   const res = await getTea(teaId);
   let data;
@@ -69,7 +71,6 @@ export const createTea = tea => async dispatch => {
 
 export const destroyTea = teaId => async dispatch => {
   const res = await deleteTea(teaId);
-  let data;
   if (res.ok) {
     dispatch(removeTea(teaId));
   }else {
@@ -78,7 +79,8 @@ export const destroyTea = teaId => async dispatch => {
 };
 
 // Selectors
-export const selectTeas = state => state.teas;
+const selectTeas = state => state.teas;
+export const selectTeasArray = createSelector(selectTeas, teas => Object.values(teas));
 
 // Reducer
 const teaReducer = (state = {}, action) => {

@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createTea } from '../store/teaReducer';
-// import { receiveTea } from '../store/teaReducer';
 
+import { createTea } from '../store/teaReducer';
 import './NewTeaForm.css';
 
 const NewTeaForm = () => {
@@ -13,12 +12,13 @@ const NewTeaForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    // debugger
+
     const tea = {
       price,
       flavor,
       description
     };
+
     dispatch(createTea(tea));
     setFlavor('');
     setPrice('');
