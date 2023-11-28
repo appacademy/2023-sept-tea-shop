@@ -1,11 +1,12 @@
 import { Outlet } from 'react-router-dom';
 
 import './Home.css';
+import Header from './Header';
 
 const Home = () => {
   return (
     <>
-      <h1>Magic Tea Shop</h1>
+      <Header />
       <Outlet />
     </>
   )

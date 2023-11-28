@@ -79,7 +79,9 @@ export const destroyTea = teaId => async dispatch => {
 };
 
 // Selectors
-const selectTeas = state => state.teas;
+// selectors that return an object generally do not need to be memoized
+export const selectTeas = state => state.teas;
+
 export const selectTeasArray = createSelector(selectTeas, teas => Object.values(teas));
 
 // Reducer

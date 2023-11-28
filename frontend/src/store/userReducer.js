@@ -22,9 +22,10 @@ export const createUser = user => async dispatch => {
   if (res.ok) {
     data = await res.json();
     sessionStorage.setItem('currentUser', JSON.stringify(data.user));
-    dispatch(receiveCurrentUser(data.user));
+    return dispatch(receiveCurrentUser(data.user));
   } else {
-    console.log('Something went wrong');
+    data = await res.json();
+    throw data;
   }
 };
 

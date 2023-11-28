@@ -2,6 +2,8 @@ import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 import Home from './components/Home';
 import TeaIndex from "./components/TeaIndex";
+import NewUserForm from './components/NewUserForm';
+import NewSessionForm from './components/NewSessionForm';
 
 const router = createBrowserRouter([
   {
@@ -11,6 +13,14 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <TeaIndex />
+      },
+      {
+        path: 'signup',
+        element: <NewUserForm />
+      },
+      {
+        path: 'login',
+        element: <NewSessionForm />
       }
     ]
   },
