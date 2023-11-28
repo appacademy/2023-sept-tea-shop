@@ -1,5 +1,3 @@
-import { RECEIVE_TEA } from "./teaReducer";
-
 // Reducer
 const userReducer = (state ={}, action) => {
   // console.log('userReducer...');

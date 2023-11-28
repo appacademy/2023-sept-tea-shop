@@ -11,6 +11,14 @@ export default defineConfig(({ mode }) => ({
       failOnError: mode === "production"
     })
   ],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true
+      }
+    }
+  }
   // To automatically open the app in the browser whenever the server starts,
   // uncomment the following lines:
   // server: {

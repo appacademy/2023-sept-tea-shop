@@ -1,21 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import App from './App';
 import './index.css';
 
+import App from './App';
 import configureStore from './store/store';
-import { receiveTea, receiveTeas, removeTea, updateTea } from './store/teaReducer';
-
+import { receiveTeaInfo, receiveTeas, removeTea, updateTea } from './store/teaReducer';
 
 console.log('welcome to the magic tea shop!');
 
 const store = configureStore();
-store.subscribe(() => console.log("New state: ", store.getState().teas));
 
 // Testing Purposes Only
 window.store = store;
-window.receiveTea = receiveTea;
+window.receiveTeaInfo = receiveTeaInfo;
 window.receiveTeas = receiveTeas;
 window.updateTea = updateTea;
 window.removeTea = removeTea;

@@ -1,9 +1,11 @@
+import { getTeas, postTea, deleteTea, getTea } from "../utils/tea_api_util";
+
 // Type Constants
 export const RECEIVE_TEAS = 'RECEIVE_TEAS';
-export const RECEIVE_TEA = 'RECEIVE_TEA';
+export const RECEIVE_TEA_INFO = 'RECEIVE_TEA_INFO';
+export const RECEIVE_TEA_DETAIL = 'RECEIVE_TEA_DETAIL';
 export const UPDATE_TEA = 'UPDATE_TEA';
 export const REMOVE_TEA = 'REMOVE_TEA';
-import { postTea, deleteTea } from "../utils/tea_api_util";
 
 // Action Creators
 export const receiveTeas = teas => ({
@@ -11,10 +13,15 @@ export const receiveTeas = teas => ({
   teas: teas
 });
 
-export const receiveTea = tea => ({
-  type: RECEIVE_TEA,
-  payload: tea
+export const receiveTeaInfo = tea => ({
+  type: RECEIVE_TEA_INFO,
+  tea
 });
+
+export const receiveTeaDetail = data => ({
+  type: RECEIVE_TEA_DETAIL,
+  data
+})
 
 export const updateTea = tea => ({
   type: UPDATE_TEA,
@@ -26,73 +33,65 @@ export const removeTea = teaId => ({
   teaId: teaId
 });
 
-
 // THUNK ACTION CREATOR
-export const createTea = (tea) => async (dispatch) =>{
-  // make our request, using the until function we just wrote 
-  const res = await postTea(tea);;
+export const fetchTea = teaId => async dispatch => {
+  const res = await getTea(teaId);
   let data;
-  if(res.ok){
+  if (res.ok) {
     data = await res.json();
-    // if the response is okay, I then want to dispatch that data via an action creator
-    dispatch(receiveTea(data))
-    
-  }else{
+    dispatch(receiveTeaDetail(data));
+  } else {
+    console.log(res.statusText);
+  }
+};
+
+export const fetchTeas = () => async dispatch => {
+  const res = await getTeas();
+  let data;
+  if (res.ok) {
+    data = await res.json();
+    dispatch(receiveTeas(data));
+  } else {
+    console.log(res.statusTest);
+  }
+};
+
+export const createTea = tea => async dispatch => {
+  const res = await postTea(tea);
+  let data;
+  if (res.ok) {
+    data = await res.json();
+    dispatch(receiveTeaInfo(data))
+  } else {
     console.log(res.statusText)
   }
+};
 
-}
-
-
-export const destroyTea = (teaId) => async (dispatch) =>{
+export const destroyTea = teaId => async dispatch => {
   const res = await deleteTea(teaId);
   let data;
-  if(res.ok){
-    data = await res.json();
-    dispatch(removeTea(data.id))
+  if (res.ok) {
+    dispatch(removeTea(teaId));
   }else {
     console.log("something went wrong!")
   }
-}
-
-
-
-
-
-
-// export const deleteTea = (teaId) => {
-//   return fetch(`/api/teas/${teaId}`, {
-//     method: 'DELETE',
-//     // body: JSON.stringify(tea),
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Accept': 'application/json'
-//     }
-//   });
-// };
-
+};
 
 // Selectors
 export const selectTeas = state => state.teas;
 
 // Reducer
 const teaReducer = (state = {}, action) => {
-  // console.log('teaReducer...');
   const nextState = Object.assign({}, state);
-  // const nextState = { ...state };
 
   switch (action.type) {
     case RECEIVE_TEAS:
-      // can differ depending on whether we are given an arry or object of teas
-      // if action.teas is an object
       return { ...nextState, ...action.teas };
-      // if action.teas is an array of objects
-      // for (let tea of action.teas) {
-      //   nextState[tea.id] = tea;
-      // }
-      // return nextState;
-    case RECEIVE_TEA:
-      nextState[action.payload.id] = action.payload;
+    case RECEIVE_TEA_INFO:
+      nextState[action.tea.id] = action.tea;
+      return nextState;
+    case RECEIVE_TEA_DETAIL:
+      nextState[action.data.tea.id] = action.data.tea;
       return nextState;
     case UPDATE_TEA:
       nextState[action.tea.id] = { ...nextState[action.tea.id], ...action.tea };

@@ -25,8 +25,8 @@ class Api::TeasController < ApplicationController
   def destroy
     @tea = Tea.find_by(id: params[:id])
     if @tea&.destroy
-      # head :no_content
-      render json: @tea
+      head :no_content
+      # render json: @tea
     else
       render json: ['Something went wrong'], status: 422
     end

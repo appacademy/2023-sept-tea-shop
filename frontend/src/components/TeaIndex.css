@@ -1,0 +1,11 @@
+.tea-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px;
+  margin: 5px;
+  outline: 1px solid black;
+}
+
+.tea-detail {
+  padding: 0px 5px;
+}
