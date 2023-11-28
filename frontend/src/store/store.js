@@ -5,11 +5,13 @@ import logger from 'redux-logger';
 import teaReducer from "./teaReducer";
 import userReducer from "./userReducer";
 import transactionReducer from "./transactionReducer";
+import sessionReducer from "./sessionReducer";
 
 const rootReducer = combineReducers({
   teas: teaReducer,
   transactions: transactionReducer,
-  users: userReducer
+  users: userReducer,
+  session: sessionReducer
 });
 
 const configureStore = (initialState = {}) => (

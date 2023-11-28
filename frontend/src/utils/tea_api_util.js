@@ -1,36 +1,22 @@
+import { csrfFetch } from "./csrf";
+
 export const getTeas = () => (
-	fetch('/api/teas', {
-		headers: {
-			'Accept': 'application/json'
-		}
-	})
+	csrfFetch('/api/teas')
 );
 
 export const getTea = teaId => (
-	fetch(`/api/teas/${teaId}`, {
-		headers: {
-			'Accept': 'application/json'
-		}
-	})
+	csrfFetch(`/api/teas/${teaId}`)
 );
 
 export const postTea = tea => (
-	fetch('/api/teas', {
+	csrfFetch('/api/teas', {
 		method: 'POST',
-		body: JSON.stringify(tea),
-		headers: {
-			'Content-Type': 'application/json',
-			'Accept': 'application/json'
-		}
+		body: JSON.stringify(tea)
 	})
 );
 
 export const deleteTea = teaId => (
-	fetch(`/api/teas/${teaId}`, {
-		method: 'DELETE',
-		headers: {
-			'Content-Type': 'application/json',
-			'Accept': 'application/json'
-		}
+	csrfFetch(`/api/teas/${teaId}`, {
+		method: 'DELETE'
 	})
 );
