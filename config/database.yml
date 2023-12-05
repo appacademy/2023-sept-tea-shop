@@ -81,6 +81,4 @@ test:
 #
 production:
   <<: *default
-  database: magic_tea_shop_production
-  username: magic_tea_shop
-  password: <%= ENV["MAGIC_TEA_SHOP_DATABASE_PASSWORD"] %>
+  url : <%= ENV['DATABASE_URL'] %>
