@@ -14,7 +14,7 @@ export const loginUser = user => async dispatch => {
     sessionStorage.setItem('currentUser', JSON.stringify(data.user));
     dispatch(receiveCurrentUser(data.user))
   } else {
-    console.log('something went wrong');
+    // console.log('something went wrong');
   }
 };
 
@@ -24,7 +24,7 @@ export const logoutUser = userId => async dispatch => {
     sessionStorage.removeItem('currentUser');
     dispatch(removeCurrentUser(userId));
   } else {
-    console.log('something went wrong');
+    // console.log('something went wrong');
   }
 };
 
