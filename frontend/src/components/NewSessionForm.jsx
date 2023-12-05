@@ -17,7 +17,7 @@ const NewSessionForm = () => {
     if (loggedIn) {
       navigate('/');
     }
-  }, [loggedIn]);
+  }, [navigate, loggedIn]);
 
   const handleSubmit = e => {
     e.preventDefault();

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchTeas, selectTeas, selectTeasArray } from '../store/teaReducer';
+import { fetchTeas, selectTeasArray } from '../store/teaReducer';
 import TeaIndexItem from './TeaIndexItem';
 import NewTeaForm from './NewTeaForm';
 import './TeaIndex.css';

@@ -18,6 +18,10 @@ export default defineConfig(({ mode }) => ({
         changeOrigin: true
       }
     }
+  },
+  build: {
+    outDir: '../public',
+    emptyOutDir: true
   }
   // To automatically open the app in the browser whenever the server starts,
   // uncomment the following lines:
