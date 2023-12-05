@@ -9,4 +9,12 @@ Rails.application.routes.draw do
     resources :teas, only: [:show, :index, :create, :destroy]
     resource :session, only: [:show, :create, :destroy]
   end
+
+  # purpose of this route is to serve up our frontend
+  get '*path',
+    to: 'static_pages#frontend',
+    constraints: lambda { |req| !req.xhr? && req.format.html? }
+
+  root 'static_pages#frontend', 
+    constraints: lambda { |req| !req.xhr? && req.format.html? }
 end
