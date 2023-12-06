@@ -6,60 +6,77 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-ActiveRecord::Base.transaction do
-  Transaction.destroy_all
-  User.destroy_all
-  Tea.destroy_all
+require 'open-uri'
 
-  ActiveRecord::Base.connection.reset_pk_sequence!('teas')
-  ActiveRecord::Base.connection.reset_pk_sequence!('users')
-  ActiveRecord::Base.connection.reset_pk_sequence!('transactions')
+Transaction.destroy_all
+User.destroy_all
+Tea.destroy_all
 
-  puts "Creating teas..."
+ActiveRecord::Base.connection.reset_pk_sequence!('teas')
+ActiveRecord::Base.connection.reset_pk_sequence!('users')
+ActiveRecord::Base.connection.reset_pk_sequence!('transactions')
 
-  green_tea = Tea.create!(flavor: "Green", price: 1.75, description: "Green tea is a type of tea that is made from Camellia sinensis leaves and buds that have not undergone the same withering and oxidation process used to make oolong teas and black teas. Green tea originated in China, but its production and manufacture has spread to other countries in East Asia.")
-  oolong_tea = Tea.create!(flavor: "Oolong", price: 2.00, description: 'Oolong tea is a type of tea that is sometimes called "wulong" (also pronounced "oolong") or "black dragon" tea. Oolong teas are semi-oxidized teas. They are sometimes called "semi-fermented teas" though this moniker is considered to be less technically correct than semi-oxidized teas. After the tea leaves are picked, they are rolled and allowed to oxidize. Oxidation produces floral notes that characterize many oolongs.')
-  earl_grey_tea = Tea.create!(flavor: "Earl Grey", price: 2.50, description: "Earl Grey tea is a tea blend which has been flavoured with the addition of oil of bergamot. The rind's fragrant oil is added to black tea to give Earl Grey its unique taste. Traditionally, Earl Grey was made from black teas such as China keemun and therefore intended to be drunk without milk. However, tea companies have since begun to offer Earl Grey based upon stronger teas such as Ceylons which are better suited to the addition of milk or cream. Other varieties have been introduced as well, such as green or oolong.")
-  rooibos_tea = Tea.create!(flavor: "Rooibos", price: 3.00, description: "Rooibos (/ˈrɔɪbɒs/ ROY-boss; Afrikaans: [rɔːibɔs]; Aspalathus linearis), meaning 'red bush'; is a broom-like member of the plant family Fabaceae that grows in South Africa's fynbos. The leaves are used to make a herbal tea that is called by the names: rooibos (especially in Southern Africa), bush tea, red tea, or redbush tea (predominantly in Great Britain). The tea has been popular in Southern Africa for generations, but is now consumed in many countries worldwide. It is sometimes spelled rooibosch in accordance with the original Dutch for 'red bush'. The tea has a taste and color somewhat similar to hibiscus tea, with more or less of an earthy flavor like yerba mate.")
- 
+puts "Creating teas..."
+
+green_tea = Tea.create!(flavor: "Green", price: 1.75, description: "Green tea is a type of tea that is made from Camellia sinensis leaves and buds that have not undergone the same withering and oxidation process used to make oolong teas and black teas. Green tea originated in China, but its production and manufacture has spread to other countries in East Asia.")
+oolong_tea = Tea.create!(flavor: "Oolong", price: 2.00, description: 'Oolong tea is a type of tea that is sometimes called "wulong" (also pronounced "oolong") or "black dragon" tea. Oolong teas are semi-oxidized teas. They are sometimes called "semi-fermented teas" though this moniker is considered to be less technically correct than semi-oxidized teas. After the tea leaves are picked, they are rolled and allowed to oxidize. Oxidation produces floral notes that characterize many oolongs.')
+earl_grey_tea = Tea.create!(flavor: "Earl Grey", price: 2.50, description: "Earl Grey tea is a tea blend which has been flavoured with the addition of oil of bergamot. The rind's fragrant oil is added to black tea to give Earl Grey its unique taste. Traditionally, Earl Grey was made from black teas such as China keemun and therefore intended to be drunk without milk. However, tea companies have since begun to offer Earl Grey based upon stronger teas such as Ceylons which are better suited to the addition of milk or cream. Other varieties have been introduced as well, such as green or oolong.")
+rooibos_tea = Tea.create!(flavor: "Rooibos", price: 3.00, description: "Rooibos (/ˈrɔɪbɒs/ ROY-boss; Afrikaans: [rɔːibɔs]; Aspalathus linearis), meaning 'red bush'; is a broom-like member of the plant family Fabaceae that grows in South Africa's fynbos. The leaves are used to make a herbal tea that is called by the names: rooibos (especially in Southern Africa), bush tea, red tea, or redbush tea (predominantly in Great Britain). The tea has been popular in Southern Africa for generations, but is now consumed in many countries worldwide. It is sometimes spelled rooibosch in accordance with the original Dutch for 'red bush'. The tea has a taste and color somewhat similar to hibiscus tea, with more or less of an earthy flavor like yerba mate.")
+
+green_tea.photo.attach(
+  io: URI.open('https://magic-tea-shop-seeds.s3.us-west-1.amazonaws.com/green_tea.jpg'),
+  filename: 'green_tea.jpg'
+)
+oolong_tea.photo.attach(
+  io: URI.open('https://magic-tea-shop-seeds.s3.us-west-1.amazonaws.com/oolong_tea.jpg'),
+  filename: 'oolong_tea.jpg'
+)
+earl_grey_tea.photo.attach(
+  io: URI.open('https://magic-tea-shop-seeds.s3.us-west-1.amazonaws.com/earl_grey_tea.jpg'),
+  filename: 'earl_grey_tea.jpg'
+)
+rooibos_tea.photo.attach(
+  io: URI.open('https://magic-tea-shop-seeds.s3.us-west-1.amazonaws.com/rooibos_tea.jpg'),
+  filename: 'rooibos_tea.jpg'
+)
+
 puts "Creating users..."
 
-  mike = User.create!(username: 'madz', password: 'password')
-  paulo = User.create!(username: 'papi', password: 'password')
-  chris = User.create!(username: 'kriz', password: 'password')
-  abbey = User.create!(username: 'abz', password: 'password')
-  darren = User.create!(username: 'darude', password: 'password')
-  diego = User.create!(username: 'didi', password: 'password')
-  taylor = User.create!(username: 'taytay', password: 'password')
-  disnee = User.create!(username: "diz", password: 'password')
+mike = User.create!(username: 'madz', password: 'password')
+paulo = User.create!(username: 'papi', password: 'password')
+chris = User.create!(username: 'kriz', password: 'password')
+abbey = User.create!(username: 'abz', password: 'password')
+darren = User.create!(username: 'darude', password: 'password')
+diego = User.create!(username: 'didi', password: 'password')
+taylor = User.create!(username: 'taytay', password: 'password')
+disnee = User.create!(username: "diz", password: 'password')
 
-  puts "Creating transactions..."
+puts "Creating transactions..."
 
-  # Green
-  Transaction.create!(tea_id: green_tea.id, buyer_id: paulo.id, quantity: 1)
-  Transaction.create!(tea_id: green_tea.id, buyer_id: chris.id, quantity: 2)
-  Transaction.create!(tea_id: green_tea.id, buyer_id: abbey.id, quantity: 1)
-  Transaction.create!(tea_id: green_tea.id, buyer_id: chris.id, quantity: 3)
+# Green
+Transaction.create!(tea_id: green_tea.id, buyer_id: paulo.id, quantity: 1)
+Transaction.create!(tea_id: green_tea.id, buyer_id: chris.id, quantity: 2)
+Transaction.create!(tea_id: green_tea.id, buyer_id: abbey.id, quantity: 1)
+Transaction.create!(tea_id: green_tea.id, buyer_id: chris.id, quantity: 3)
 
-  # Oolong
-  Transaction.create!(tea_id: oolong_tea.id, buyer_id: mike.id, quantity: 1)
-  Transaction.create!(tea_id: oolong_tea.id, buyer_id: darren.id, quantity: 1)
-  Transaction.create!(tea_id: oolong_tea.id, buyer_id: mike.id, quantity: 5)
-  Transaction.create!(tea_id: oolong_tea.id, buyer_id: mike.id, quantity: 3)
-  Transaction.create!(tea_id: oolong_tea.id, buyer_id: mike.id, quantity: 2)
-  Transaction.create!(tea_id: oolong_tea.id, buyer_id: diego.id, quantity: 1)
+# Oolong
+Transaction.create!(tea_id: oolong_tea.id, buyer_id: mike.id, quantity: 1)
+Transaction.create!(tea_id: oolong_tea.id, buyer_id: darren.id, quantity: 1)
+Transaction.create!(tea_id: oolong_tea.id, buyer_id: mike.id, quantity: 5)
+Transaction.create!(tea_id: oolong_tea.id, buyer_id: mike.id, quantity: 3)
+Transaction.create!(tea_id: oolong_tea.id, buyer_id: mike.id, quantity: 2)
+Transaction.create!(tea_id: oolong_tea.id, buyer_id: diego.id, quantity: 1)
 
-  # Earl Grey
-  Transaction.create!(tea_id: earl_grey_tea.id, buyer_id: diego.id, quantity: 1)
-  Transaction.create!(tea_id: earl_grey_tea.id, buyer_id: paulo.id, quantity: 2)
-  Transaction.create!(tea_id: earl_grey_tea.id, buyer_id: diego.id, quantity: 3)
-  Transaction.create!(tea_id: earl_grey_tea.id, buyer_id: taylor.id, quantity: 15)
-  Transaction.create!(tea_id: earl_grey_tea.id, buyer_id: disnee.id, quantity: 2)
-  
-  # Rooibos
-  Transaction.create!(tea_id: rooibos_tea.id, buyer_id: disnee.id, quantity: 2)
-  Transaction.create!(tea_id: rooibos_tea.id, buyer_id: taylor.id, quantity: 1)
-  Transaction.create!(tea_id: rooibos_tea.id, buyer_id: disnee.id, quantity: 3)
-  Transaction.create!(tea_id: rooibos_tea.id, buyer_id: abbey.id, quantity: 2)
-  Transaction.create!(tea_id: rooibos_tea.id, buyer_id: darren.id, quantity: 1)
-end
+# Earl Grey
+Transaction.create!(tea_id: earl_grey_tea.id, buyer_id: diego.id, quantity: 1)
+Transaction.create!(tea_id: earl_grey_tea.id, buyer_id: paulo.id, quantity: 2)
+Transaction.create!(tea_id: earl_grey_tea.id, buyer_id: diego.id, quantity: 3)
+Transaction.create!(tea_id: earl_grey_tea.id, buyer_id: taylor.id, quantity: 15)
+Transaction.create!(tea_id: earl_grey_tea.id, buyer_id: disnee.id, quantity: 2)
+
+# Rooibos
+Transaction.create!(tea_id: rooibos_tea.id, buyer_id: disnee.id, quantity: 2)
+Transaction.create!(tea_id: rooibos_tea.id, buyer_id: taylor.id, quantity: 1)
+Transaction.create!(tea_id: rooibos_tea.id, buyer_id: disnee.id, quantity: 3)
+Transaction.create!(tea_id: rooibos_tea.id, buyer_id: abbey.id, quantity: 2)
+Transaction.create!(tea_id: rooibos_tea.id, buyer_id: darren.id, quantity: 1)

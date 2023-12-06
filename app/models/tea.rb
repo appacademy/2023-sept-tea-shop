@@ -18,4 +18,6 @@ class Tea < ApplicationRecord
   has_many :buyers,
     through: :transactions,
     source: :buyer
+
+  has_one_attached :photo
 end

@@ -21,6 +21,8 @@ class User < ApplicationRecord
     through: :transactions,
     source: :tea
 
+  has_one_attached :profile_pic
+
   before_validation :ensure_session_token
 
 

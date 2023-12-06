@@ -2,6 +2,7 @@
 
 json.tea do
   json.extract! @tea, :id, :flavor, :price, :description
+  json.photoUrl @tea.photo.attached? ? url_for(@tea.photo) : nil
   json.transactionIds @tea.transaction_ids
   # json.buyerIds @tea.buyer_ids
 end

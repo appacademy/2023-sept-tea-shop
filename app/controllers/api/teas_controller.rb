@@ -1,5 +1,5 @@
 class Api::TeasController < ApplicationController
-  # wrap_parameters
+  # wrap_parameters include: Tea.attribute_names + ['photo']
 
   def show
     @tea = Tea.find_by(id: params[:id])
@@ -34,6 +34,6 @@ class Api::TeasController < ApplicationController
 
   private
   def tea_params
-    params.require(:tea).permit(:flavor, :price, :description)
+    params.require(:tea).permit(:flavor, :price, :description, :photo)
   end
 end

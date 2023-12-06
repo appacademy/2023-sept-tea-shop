@@ -27,7 +27,10 @@ const TeaIndexItem = ({ tea, selectedTea, setSelectedTea }) => {
         <span className='tea-detail'>{tea.flavor}</span>
         <span className='tea-detail'>${tea.price}</span>
         {selectedTea === tea.id && (
-          <div>{tea.description}</div>
+          <>
+            <img className='tea-photo' src={tea.photoUrl}></img>
+            <div>{tea.description}</div>
+          </>
         )}
       </div>
       <button onClick={handleDelete(tea)}>Delete</button>

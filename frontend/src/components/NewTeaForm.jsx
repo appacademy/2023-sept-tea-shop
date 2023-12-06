@@ -9,20 +9,29 @@ const NewTeaForm = () => {
   const [flavor, setFlavor] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
+  const [photoFile, setPhotoFile] = useState(null);
+
+  const handleFile = e => {
+    const file = e.currentTarget.files[0];
+    setPhotoFile(file);
+  };
 
   const handleSubmit = e => {
     e.preventDefault();
 
-    const tea = {
-      price,
-      flavor,
-      description
-    };
+    const tea = new FormData();
+    tea.append('tea[price]', price);
+    tea.append('tea[flavor]', flavor);
+    tea.append('tea[description]', description);
+    if (photoFile) {
+      tea.append('tea[photo]', photoFile);
+    }
 
     dispatch(createTea(tea));
     setFlavor('');
     setPrice('');
     setDescription('');
+    setPhotoFile(null);
   };
 
   return (
@@ -49,6 +58,11 @@ const NewTeaForm = () => {
         onChange={e => setDescription(e.target.value)}
         cols="30"
         rows="10"
+      />
+      <input
+        type='file'
+        // value={photoFile}
+        onChange={handleFile}
       />
       <input type='submit' value={'Create Tea'} />
     </form>
