@@ -9,8 +9,6 @@ import './TeaIndex.css';
 const TeaIndex = () => {
   const dispatch = useDispatch();
   const teas = useSelector(selectTeasArray);
-  // console.log('rendering...', teas);
-
   const [selectedTea, setSelectedTea] = useState(null);
 
   useEffect(() => {

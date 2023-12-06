@@ -43,7 +43,8 @@ export const fetchTea = teaId => async dispatch => {
     data = await res.json();
     dispatch(receiveTeaDetail(data));
   } else {
-    // console.log(res.statusText);
+    data = await res.json();
+    throw data;
   }
 };
 
@@ -54,7 +55,8 @@ export const fetchTeas = () => async dispatch => {
     data = await res.json();
     dispatch(receiveTeas(data));
   } else {
-    // console.log(res.statusTest);
+    data = await res.json();
+    throw data;
   }
 };
 
@@ -65,7 +67,8 @@ export const createTea = tea => async dispatch => {
     data = await res.json();
     dispatch(receiveTeaInfo(data))
   } else {
-    // console.log(res.statusText)
+    data = await res.json();
+    throw data;
   }
 };
 
@@ -74,7 +77,7 @@ export const destroyTea = teaId => async dispatch => {
   if (res.ok) {
     dispatch(removeTea(teaId));
   }else {
-    // console.log("something went wrong!")
+    throw { errors: ['Something went wrong'] };
   }
 };
 

@@ -9,9 +9,6 @@ import { loginUser, logoutUser } from './store/sessionReducer';
 import App from './App';
 import './index.css';
 
-console.log('welcome to the magic tea shop!');
-
-
 const initializeApp = () => {
   const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
   let initialState;

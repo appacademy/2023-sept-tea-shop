@@ -13,8 +13,6 @@ const Header = () => {
     return state.users[id];
   });
 
-  console.log(currentUser);
-
   return (
     <nav className='header'>
       <Link to={'/'}>
