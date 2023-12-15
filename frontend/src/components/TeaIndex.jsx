@@ -12,7 +12,7 @@ const TeaIndex = () => {
   const [selectedTea, setSelectedTea] = useState(null);
 
   useEffect(() => {
-    dispatch(fetchTeas());
+    // dispatch(fetchTeas());
   }, [dispatch]);
 
   return (

@@ -3,21 +3,42 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { logoutUser } from '../store/sessionReducer';
 import './Header.css';
+import { useState } from 'react';
+import { fetchTeas } from '../store/teaReducer';
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [search, setSearch] = useState('');
 
   const currentUser = useSelector(state => {
     const id = state.session.currentUserId;
     return state.users[id];
   });
 
+  const handleSearch = e => {
+    e.preventDefault();
+    dispatch(fetchTeas(search))
+    setSearch('');
+  };
+
   return (
     <nav className='header'>
       <Link to={'/'}>
         <h2>Magic Tea Shop</h2>
       </Link>
+      <div>
+        <form onSubmit={handleSearch}>
+          <input 
+            type='text' 
+            value={search} 
+            onChange={e => setSearch(e.target.value)}
+            required
+          />
+          <input type='submit' value={'Search'} />
+        </form>
+      </div>
       <div className='session-info'>
         {currentUser ? (
           <>

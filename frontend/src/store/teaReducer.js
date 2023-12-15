@@ -48,8 +48,8 @@ export const fetchTea = teaId => async dispatch => {
   }
 };
 
-export const fetchTeas = () => async dispatch => {
-  const res = await getTeas();
+export const fetchTeas = search => async dispatch => {
+  const res = await getTeas(search);
   let data;
   if (res.ok) {
     data = await res.json();
@@ -93,7 +93,7 @@ const teaReducer = (state = {}, action) => {
 
   switch (action.type) {
     case RECEIVE_TEAS:
-      return { ...nextState, ...action.teas };
+      return action.teas;
     case RECEIVE_TEA_INFO:
       nextState[action.tea.id] = action.tea;
       return nextState;

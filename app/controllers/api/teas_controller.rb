@@ -7,7 +7,12 @@ class Api::TeasController < ApplicationController
   end
 
   def index
-    @teas = Tea.all
+    # want to allow for filtering/searching
+    if params[:search]
+      @teas = Tea.where("flavor ILIKE '%#{params[:search]}%'")
+    else
+      @teas = Tea.all
+    end
     # render json: @teas
     render :index
   end
